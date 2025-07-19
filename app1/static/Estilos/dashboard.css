@@ -1,0 +1,239 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(24, 67, 94);
+  color: #222;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem;
+  gap: 3rem;
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples líneas */
+}
+
+.sec-tab {
+  background-color: #fff;
+  border-radius: 6px;
+  border: 2px solid black;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  max-width: 300px;
+  width: 100%;
+  justify-items: center;
+}
+
+.sec-tab div {
+  width: 100%;
+  justify-items: center;
+}
+
+.nombres{
+  font-size: medium;
+  background-color: rgba(255, 255, 255, 0.519);
+  border-radius: 10px;
+  width: 13rem;
+  height: 2rem;
+  text-align: center;
+  box-shadow: 1px 1px 5px gray;
+  position: absolute;
+  margin-top: 5rem;
+  margin-left: -1.5rem;
+}
+
+.sec-tab div button {
+  cursor: pointer;
+  border-radius: 8px;
+  width: 250px;
+  margin-top: 1rem;
+  transition: all ease-in-out 0.3s;
+}
+
+.eliminar-btn {
+  background-color: rgb(230, 77, 77);
+  width: 4rem;
+  border-radius: 8px;
+  transition: all ease-in-out 0.3s;
+  color: black;
+}
+
+.editar-btn {
+  background-color: #66bb6a;
+  width: 4rem;
+  border-radius: 8px;
+  transition: all ease-in-out 0.3s;
+  color: black;
+}
+
+.eliminar-btn:hover,
+.editar-btn:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.sec-tab div button:hover {
+  transform: scale(1.05);
+  color: white;
+  background-color: #222;
+}
+
+.sec-tab div input {
+  width: 250px;
+}
+
+.table-prod {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px 20px;
+  width: 50rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 1rem;
+}
+
+.table-prod table {
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #222;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table-prod thead {
+  position: sticky;
+  top: 0;
+  background-color: #18435e;
+  z-index: 1;
+}
+
+.imagen div {
+  margin-top: 30rem;
+  margin-left: -71rem;
+  position: absolute;
+}
+
+/* Encabezados */
+.table-prod th {
+  background-color: #18435e;
+  color: white;
+  padding: 0.75rem 1rem;
+  border: 1px solid #18435e;
+  font-weight: bold;
+}
+
+/* Celdas */
+.table-prod td {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+/* Alternancia suave */
+.table-prod tr:nth-child(even) td {
+  background-color: #f0f4f8;
+}
+
+/* Mensajes */
+.errores {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.errores.error {
+  background-color: #ffebee;
+  color: #b71c1c;
+  border: 1px solid #d32f2f;
+}
+
+.errores.success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #66bb6a;
+}
+
+/* Botón de cerrar sesión */
+a {
+  font-size: 13px;
+  width: 7rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  background-color: #c62828;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+  display: inline-block;
+  transition: 0.3s ease;
+}
+
+a:hover {
+  background-color: #b71c1c;
+  transform: scale(1.05);
+}
+
+/* ===============================
+   📱 Responsividad (Media Queries)
+   =============================== */
+
+/* Dispositivos tablets (pantallas menores a 900px) */
+@media (max-width: 900px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .sec-tab, .table-prod {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-prod {
+    max-height: none;
+  }
+
+  .imagen div {
+    position: static;
+    margin: 2rem 0;
+  }
+
+  .nombres{
+    position: absolute;
+    margin-top: -1.4rem;
+    margin-left: 2rem;
+    border: 2px solid black;
+  }
+  a{
+    margin-top: 3rem;
+  }
+}
+
+/* Dispositivos móviles pequeños (pantallas menores a 600px) */
+@media (max-width: 600px) {
+  .sec-tab div input,
+  .sec-tab div button {
+    width: 100%;
+  }
+
+  .table-prod table {
+    font-size: 12px;
+  }
+
+  .table-prod th, .table-prod td {
+    padding: 0.5rem;
+  }
+
+  a {
+    width: 100%;
+    text-align: center;
+  }
+}
