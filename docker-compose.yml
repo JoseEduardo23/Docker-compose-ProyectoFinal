@@ -1,0 +1,151 @@
+version: '3'
+
+services:
+  app:
+    build: ./app
+    container_name: servidor_master
+    ports:
+     - 5001:5000
+    environment:
+     - MYSQL_HOST=maestro1
+     - MYSQL_USER=root
+     - MYSQL_PASSWORD=root
+     - MYSQL_DB=db_inventario
+     - MYSQL_PORT=3306
+    networks:
+      - inventarioApp
+  
+  app1:
+    build: ./app1
+    container_name: servidor_slave1
+    ports:
+     - 5002:5000
+    environment:
+     - MYSQL_HOST=maestro1
+     - MYSQL_USER=root
+     - MYSQL_PASSWORD=root
+     - MYSQL_DB=db_inventario
+     - MYSQL_PORT=3306
+    networks:
+      - inventarioApp
+
+  app2:
+    build: ./app2
+    container_name: servidor_slave2
+    ports:
+     - 5003:5000
+    environment:
+     - MYSQL_HOST=maestro1
+     - MYSQL_USER=root
+     - MYSQL_PASSWORD=root
+     - MYSQL_DB=db_inventario
+     - MYSQL_PORT=3306
+    networks:
+      - inventarioApp
+
+  app3:
+    build: ./app3
+    container_name: servidor_slave3
+    ports:
+     - 5004:5000
+    environment:
+     - MYSQL_HOST=maestro1
+     - MYSQL_USER=root
+     - MYSQL_PASSWORD=root
+     - MYSQL_DB=db_inventario
+     - MYSQL_PORT=3306
+    networks:
+      - inventarioApp
+
+  nginx:
+    image: nginx:latest
+    container_name: EXAMENB2
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+      - app1
+      - app2
+      - app3
+    networks:
+      - inventarioApp
+
+  maestro1:
+    image: mysql:8.0
+    container_name: maestro1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_inventario
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/master.cnf:/etc/mysql/conf.d/my.cnf
+      - maestro_data:/var/lib/mysql
+    networks:
+      - inventarioApp
+
+  slave1:
+    image: mysql:8.0
+    container_name: slave1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysql/slave1.cnf:/etc/mysql/conf.d/zz-slave1.cnf
+      - slave1_data:/var/lib/mysql
+    depends_on:
+      - maestro1
+    networks:
+      - inventarioApp
+
+  slave2:
+    image: mysql:8.0
+    container_name: slave2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3308:3306
+    volumes:
+      - ./mysql/slave2.cnf:/etc/mysql/conf.d/aa-slave2.cnf
+      - slave2_data:/var/lib/mysql
+    depends_on:
+      - maestro1
+    networks:
+      - inventarioApp
+
+  slave3:
+    image: mysql:8.0
+    container_name: slave3
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3309:3306
+    volumes:
+      - ./mysql/slave3.cnf:/etc/mysql/conf.d/bb-slave3.cnf
+      - slave3_data:/var/lib/mysql
+    depends_on:
+      - maestro1
+    networks:
+      - inventarioApp
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOSTS=maestro1,slave1
+    networks:
+      - inventarioApp
+  
+networks:
+  inventarioApp:
+    driver: bridge
+    
+volumes:
+  maestro_data:
+  slave1_data:
+  slave2_data:
+  slave3_data:

@@ -1,0 +1,1 @@
+nombre=ProductoActualizado&codigo=PROD001&descripcion=NuevaDescripcion&unidad=unidad&categoria=nueva_categoria

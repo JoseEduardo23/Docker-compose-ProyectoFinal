@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/Estilos/dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="nombres">Bienvenido, {{ username }}</h1>
+    <a href="/logout">Cerrar sesión</a>
+    <section class="sec-tab">
+        <div class="errores">
+            {% if mensaje %}
+            <p style="color: red;">{{ mensaje }}</p>
+            {% endif %}
+        </div>
+        <div class="Tablas">
+            <form class="formq" method="POST"
+                action="{{ '/actualizar_producto' if producto else '/registrar_producto' }}">
+                <label class="lbl">Nombre:</label><br>
+                <input type="text" name="nombre" value="{{ producto[0] if producto else '' }}"><br>
+
+                <label class="lbl">Código:</label><br>
+                <input type="text" name="codigo" value="{{ producto[1] if producto else '' }}" {% if producto
+                    %}readonly{% endif %}><br>
+
+                <label class="lbl">Descripcion:</label><br>
+                <input type="text" name="descripcion" value="{{ producto[2] if producto else '' }}"><br>
+
+                <label class="lbl">Unidades:</label><br>
+                <input type="number" min="1" max="100" name="unidad" value="{{ producto[3] if producto else '' }}"><br>
+
+                <label class="lbl">Categoria:</label><br>
+                <select name="categoria">
+                    <option value="Lacteos" {% if producto and producto[4]=="Lacteos" %}selected{% endif %}>Lácteos
+                    </option>
+                    <option value="Legumbres" {% if producto and producto[4]=="Legumbres" %}selected{% endif %}>
+                        Legumbres</option>
+                    <option value="Hortalizas" {% if producto and producto[4]=="Hortalizas" %}selected{% endif %}>
+                        Hortalizas</option>
+                    <option value="Carnes y pescado" {% if producto and producto[4]=="Carnes y pescado" %}selected{%
+                        endif %}>Carnes y pescado</option>
+                    <option value="Huevos" {% if producto and producto[4]=="Huevos" %}selected{% endif %}>Huevos
+                    </option>
+                    <option value="Frutas" {% if producto and producto[4]=="Frutas" %}selected{% endif %}>Frutas
+                    </option>
+                    <option value="Cereales" {% if producto and producto[4]=="Cereales" %}selected{% endif %}>Cereales
+                    </option>
+                    <option value="Grasas" {% if producto and producto[4]=="Grasas" %}selected{% endif %}>Grasas
+                    </option>
+                </select><br>
+
+                <button type="submit">
+                    {{ 'ACTUALIZAR' if producto else 'REGISTRAR' }}
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="table-prod">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Descripcion</th>
+                    <th>Unidades</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto[0] }}</td>
+                    <td>{{ producto[1] }}</td>
+                    <td>{{ producto[2] }}</td>
+                    <td>{{ producto[3] }}</td>
+                    <td>{{ producto[4] }}</td>
+                    <td class="actions">
+                        <form method="POST" action="/eliminar_producto">
+                            <input type="hidden" name="codigo" value="{{ producto[1] }}">
+                            <button class="eliminar-btn" type="submit"
+                                onclick="return confirm('¿Estás seguro de eliminar este producto?')">Eliminar</button>
+                        </form>
+
+                        <form method="GET" action="/editar_producto" style="display:inline;">
+                            <input type="hidden" name="codigo" value="{{ producto[1] }}">
+                            <button class="editar-btn" type="submit">
+                                Editar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <section class="imagen">
+        <div>
+            <h1>HOLA</h1>
+        <img src="" alt="">
+        </div>
+    </section>
+</body>
+
+</html>

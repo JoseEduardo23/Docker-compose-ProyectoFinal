@@ -1,0 +1,1 @@
+nombre=Producto1&codigo=PROD001&descripcion=Descripcion1&unidad=kg&categoria=cat1
