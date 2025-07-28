@@ -104,3 +104,7 @@ Se realizaron pruebas con ApacheBench (`ab`) para simular múltiples usuarios co
 #### Comando de prueba:
 ```bash
 ab -n 1000 -c 100 http://localhost/
+
+
+## Presentacion Canva
+https://www.canva.com/design/DAGue71cm_w/m3cVSuRDFPgsQXFAfzrJeg/edit?utm_content=DAGue71cm_w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
